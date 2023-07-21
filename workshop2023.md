@@ -143,7 +143,9 @@ cd ..
 
 ##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch) 
 
+```bash
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
+```
 
 ## BREAK FOR LUNCH
 
