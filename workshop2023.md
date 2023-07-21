@@ -50,13 +50,9 @@ Species_H.fasta
 ```
 
 <table border=1><tr><td bgcolor="gray">TRINITY
-Assembling RNA-Seq data with Trinity is beyond the scope of this workshop. There is an excellent YouTube Video explaining details of Trinity algorithms from the author here:
+Assembling RNA-Seq data with Trinity is beyond the scope of this workshop. There is an excellent YouTube Video explaining details of Trinity algorithms from the author here: <a href="https://www.youtube.com/watch?v=NLzqvRo2qZs">https://www.youtube.com/watch?v=NLzqvRo2qZs</a>
 
-    <a href="https://www.youtube.com/watch?v=NLzqvRo2qZs">https://www.youtube.com/watch?v=NLzqvRo2qZs</a>
-
-Here is a step-by-step tutorial:
-
-    <a href="https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020">https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020</a>
+Here is a step-by-step tutorial: <a href="https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020">https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020</a>
 </td></tr></table>
 
 ### TransDecoder
