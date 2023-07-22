@@ -152,9 +152,12 @@ ln -s ../../01-TRANSDECODER/*.transdecoder.pep .
 cd ..
 ```
 
-##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch. You may want to use screen.) 
+##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch.) 
 
 ```bash
+# MAY WANT TO INVOKE SCREEN HERE - ADJUST PATH
+# screen -S orthofinder
+
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 ```
 
