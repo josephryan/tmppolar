@@ -237,7 +237,7 @@ Pruned alignments are created in this directory:
 /data1/GATORLINK/03-PHYLOPYPRUNER/phylopypruner_output/output_alignments
 ```
 
-#####PAL2NAL (align cds based on aa alignment)
+##### PAL2NAL (align cds based on aa alignment)
 
 Create a new directory and copy pruned alignments to this directory
 
@@ -344,8 +344,7 @@ Run CODEML (program within PAML that tests for selection; estimated time = 2+ ho
 # MAY WANT TO INVOKE SCREEN HERE - ADJUST PATH
 # screen -S paml
 
-run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy \
-> rc.out 2> rc.err &
+run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy > rc.out 2> rc.err &
 
 # check progress
 tail -f rc.out
@@ -355,7 +354,7 @@ tail -f rc.out
 screen -d
 ```
  
-#####HYPHY (make sure conda polar environment is activated)
+##### HYPHY (make sure conda polar environment is activated)
 
 ```bash
 mkdir -p /data1/GATORLINK/06-HYPHY/01-ALN
@@ -384,29 +383,25 @@ cp ../04-PAL2NAL/03-P2N/*.fa_align.fa 01-ALN/
 <br><br>Run a single BUSTED
 
 ```bash
-hyphy busted --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
-  --tree unrooted.tree --branches Foreground --output OG0007770.Busted.jason
+hyphy busted --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.Busted.jason
 ```
 
 Run a single aBSREL
 
 ```bash
-hyphy aBSREL --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
-  --tree unrooted.tree --branches Foreground --output OG0007770.aBSREL.jason
+hyphy aBSREL --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.aBSREL.jason
 ```
 
 Run a single MEME
 
 ```bash
-hyphy meme --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
-  --tree unrooted.tree --branches Foreground --output OG0007770.meme.jason
+hyphy meme --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.meme.jason
 ```
 
 Run a single RELAX (note: RELAX use --test instead of --branches to specify branches) 
 
 ```bash
-hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
-  --tree unrooted.tree --test Foreground --output OG0007770.meme.jason
+hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --test Foreground --output OG0007770.meme.jason
 ```
 
 Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
@@ -428,7 +423,7 @@ grep lnL *.alt.codeml > ALT_lnL_list.txt
 grep lnL *.null.codeml > Null_lnL_list.txt
 ```
 
-#####Significance
+##### Significance
 
 Import these lists into Excel and use a chisquare test of significance.
  
@@ -471,7 +466,7 @@ NOTE: You may want to make your own blastp reference database of a subset of rel
 makeblastdb -dbtype prot -in Relevant.fasta -out RelevantDBseqs.fasta
 ```
  
-#####HYPHY JSON File Parsing
+##### HYPHY JSON File Parsing
  
 Results will be found in OG0008203.BUSTED.json. You can quickly assess whether the test was significant or not by using grep.
  
@@ -491,32 +486,33 @@ Meme Parsing?: <a href="https://github.com/sjspielman/phyphy">https://github.com
  
 END DAY One of Workshop.
  
-#####References
-<br>Benjamini Y. 2010. Discovering the false discovery rate. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 72:405–416.
+##### References
 
-<br><br>Bielawski JP, Baker JL, Mingrone J. 2016. Inference of Episodic Changes in Natural Selection Acting on Protein Coding Sequences via CODEML. Curr Protoc Bioinformatics 54:6.15.1–6.15.32.
+Benjamini Y. 2010. Discovering the false discovery rate. <i>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</i> 72:405–416.
 
-<br><br>Gharib WH, Robinson-Rechavi M. 2013. The branch-site test of positive selection is surprisingly robust but lacks power under synonymous substitution saturation and variation in GC. Molecular Biology and Evolution 30:1675–1686.
+Bielawski JP, Baker JL, Mingrone J. 2016. Inference of Episodic Changes in Natural Selection Acting on Protein Coding Sequences via CODEML. <i>Current Protocols in Bioinformatics</i> 54:6.15.1–6.15.32.
 
-<br><br>Murrell B, Weaver S, Smith MD, Wertheim JO, Murrell S, Aylward A, Eren K, Pollner T, Martin DP, Smith DM, Scheffler K, Kosakovsky Pond SL. 2015. Gene-Wide Identification of Episodic Selection. Molecular Biology and Evolution 32:1365–1371.
+Gharib WH, Robinson-Rechavi M. 2013. The branch-site test of positive selection is surprisingly robust but lacks power under synonymous substitution saturation and variation in GC. <i>Molecular Biology and Evolution</i> 30:1675–1686.
 
-<br><br>Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. 2012. Detecting Individual Sites Subject to Episodic Diversifying Selection. PLoS Genet 8:1-10.
+Murrell B, Weaver S, Smith MD, Wertheim JO, Murrell S, Aylward A, Eren K, Pollner T, Martin DP, Smith DM, Scheffler K, Kosakovsky Pond SL. 2015. Gene-Wide Identification of Episodic Selection. <i>Molecular Biology and Evolution</i> 32:1365–1371.
 
-<br><br>Smith MD, Wertheim JO, Weaver S, Murrell B, Scheffler K, Kosakovsky Pond SL. 2015. Less Is More: An Adaptive Branch-Site Random Effects Model for Efficient Detection of Episodic Diversifying Selection. Molecular Biology and Evolution 32:1342–1353.
+Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. 2012. Detecting Individual Sites Subject to Episodic Diversifying Selection. <i>PLoS Genetics</i> 8:1-10.
 
-<br><br>Stamatakis A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30:1312–1313.
+Smith MD, Wertheim JO, Weaver S, Murrell B, Scheffler K, Kosakovsky Pond SL. 2015. Less Is More: An Adaptive Branch-Site Random Effects Model for Efficient Detection of Episodic Diversifying Selection. <i>Molecular Biology and Evolution</i> 32:1342–1353.
 
-<br><br>Steinegger M, Meier M, Mirdita M, Vöhringer H, Haunsberger SJ, Söding J. 2019. HH-suite3 for fast remote homology detection and deep protein annotation. BMC Bioinformatics 20:1–15.
+Stamatakis A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. <i>Bioinformatics</i> 30:1312–1313.
 
-<br><br>Suyama M, Torrents D, Bork P. 2006. PAL2NAL: robust conversion of protein sequence alignments into the corresponding codon alignments. Nucleic Acids Research 34:W609–12.
+Steinegger M, Meier M, Mirdita M, Vöhringer H, Haunsberger SJ, Söding J. 2019. HH-suite3 for fast remote homology detection and deep protein annotation. <i>BMC Bioinformatics</i> 20:1–15.
 
-<br><br>Thomas PD, Campbell MJ, Kejariwal A, Mi H, Karlak B, Daverman R, Diemer K, Muruganujan A, Narechania A. 2003. PANTHER: A Library of Protein Families and Subfamilies Indexed by Function. Genome Res 13:2129–2141.
+Suyama M, Torrents D, Bork P. 2006. PAL2NAL: robust conversion of protein sequence alignments into the corresponding codon alignments. <i>Nucleic Acids Research</i> 34:W609–12.
 
-<br><br>Yang Z, Nielsen R, Goldman N, Pedersen AM. 2000. Codon-substitution models for heterogeneous selection pressure at amino acid sites. Genetics 155:431–449.
+Thomas PD, Campbell MJ, Kejariwal A, Mi H, Karlak B, Daverman R, Diemer K, Muruganujan A, Narechania A. 2003. PANTHER: A Library of Protein Families and Subfamilies Indexed by Function. <i>Genome Research</i> 13:2129–2141.
 
-<br><br>Yang Z, Reis dos M. 2011. Statistical Properties of the Branch-Site Test of Positive Selection. Molecular Biology and Evolution 28:1217–1228.
+Yang Z, Nielsen R, Goldman N, Pedersen AM. 2000. Codon-substitution models for heterogeneous selection pressure at amino acid sites. <i>Genetics</i> 155:431–449.
 
-<br><br>Yang Z, Wong WSW, Nielsen R. 2005. Bayes empirical bayes inference of amino acid sites under positive selection. Molecular Biology and Evolution 22:1107–1118.
+Yang Z, Reis dos M. 2011. Statistical Properties of the Branch-Site Test of Positive Selection. <i>Molecular Biology and Evolution</i> 28:1217–1228.
 
-<br><br>Zhang J. 2005. Evaluation of an Improved Branch-Site Likelihood Method for Detecting Positive Selection at the Molecular Level. Molecular Biology and Evolution 22:2472–2479.
+Yang Z, Wong WSW, Nielsen R. 2005. Bayes empirical bayes inference of amino acid sites under positive selection. <i>Molecular Biology and Evolution</i> 22:1107–1118.
+
+Zhang J. 2005. Evaluation of an Improved Branch-Site Likelihood Method for Detecting Positive Selection at the Molecular Level. <i>Molecular Biology and Evolution</i> 22:2472–2479.
 
