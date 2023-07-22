@@ -178,21 +178,6 @@ screen -d
 ## BREAK FOR LUNCH
 
 <table bgcolor=grey border=1><tr><td>
-<b>Specifying tree inference, local alignment or MSA programs:</b> config.json
-
-You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree (the defaults) provide a reasonable compromise between speed and accuracy. There are options within OrthoFinder to use these other programs:
-<br>muscle (alignment)
-<br>iqtree (tree)
-<br>raxml (tree)
-<br>raxml-ng (tree)
-
-For example, to use muscle and iqtree, the command like arguments would be:
-```bash
--M msa -A muscle -T iqtree
-```
-</td></tr></table>
-
-<table bgcolor=grey border=1><tr><td>
 <b>Adding and/or subtracting species from an orthofinder analysis</b>
 
 Often after running a large orthofinder analysis, you may need to add or subtract species from your study. For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis. See the documentation.
@@ -200,16 +185,17 @@ Often after running a large orthofinder analysis, you may need to add or subtrac
 
 ##### Orthofinder output
 
-Orthofinder output should be here (e.g., Results_MMMDD = Results_JUL24):   
+Orthofinder output should be here (e.g., Results_MonDD = Results_Jul24):   
+<br>NOTE: you will need to replace "Results_MonDD" with the actual directory name in commands below
 
 ```bash
-/data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD
+/data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MonDD
 ```
 
 View overall stats:
 
 ```bash
-cd /data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD
+cd /data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MonDD
 ```
 
 ```bash
@@ -217,19 +203,23 @@ less Comparative_Genomics_Statistics/Statistics_Overall.tsv
    # to exit less, type 'q'
 ```
 
-Other potentially interesting stats:
+Other potentially interesting OrthoFinder output files:
 
 ```bash
-less Duplications_per_Orthogroup.tsv
-less Orthogroups_SpeciesOverlaps.tsv
-less OrthologuesStats_many-to-one.tsv
-less OrthologuesStats_one-to-one.tsv
-less Statistics_Overall.tsv
-less Duplications_per_Species_Tree_Node.tsv
-less OrthologuesStats_many-to-many.tsv
-less OrthologuesStats_one-to-many.tsv
-less OrthologuesStats_Totals.tsv
-less Statistics_PerSpecies.tsv
+less ./Orthogroups/Orthogroups.tsv
+less ./Orthogroups/Orthogroups_UnassignedGenes.tsv
+less ./Orthogroups/Orthogroups.GeneCount.tsv
+less ./Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv
+less ./Comparative_Genomics_Statistics/Statistics_Overall.tsv
+less ./Comparative_Genomics_Statistics/Orthogroups_SpeciesOverlaps.tsv
+less ./Comparative_Genomics_Statistics/OrthologuesStats_Totals.tsv
+less ./Comparative_Genomics_Statistics/OrthologuesStats_one-to-one.tsv
+less ./Comparative_Genomics_Statistics/OrthologuesStats_one-to-many.tsv
+less ./Comparative_Genomics_Statistics/OrthologuesStats_many-to-one.tsv
+less ./Comparative_Genomics_Statistics/OrthologuesStats_many-to-many.tsv
+less ./Comparative_Genomics_Statistics/Duplications_per_Species_Tree_Node.tsv
+less ./Comparative_Genomics_Statistics/Duplications_per_Orthogroup.tsv
+less ./Gene_Duplication_Events/Duplications.tsv
 ```
 
 ##### Gathering the datasets and trees that contain all seven species
@@ -239,7 +229,7 @@ We will use the `get_fasta_and_tree_w_min_number.pl` script to copy the alignmen
 ```bash
 cd /data1/GATORLINK/02-ORTHOFINDER
 
-get_fasta_and_tree_w_min_number.pl --fa_dir=01-AA/OrthoFinder/Results_MMMDD/MultipleSequenceAlignments --tree_dir=01-AA/OrthoFinder/Results_MMMDD/Gene_Trees --out_dir=02-GFWMN --min_taxa=7
+get_fasta_and_tree_w_min_number.pl --fa_dir=01-AA/OrthoFinder/Results_MonDD/MultipleSequenceAlignments --tree_dir=01-AA/OrthoFinder/Results_MonDD/Gene_Trees --out_dir=02-GFWMN --min_taxa=7
 
 # we will use the output in 02-GFWMN for downstream analyses
 ```
@@ -281,6 +271,7 @@ mkdir /data1/GATORLINK/04-PAL2NAL
 cd /data1/GATORLINK/04-PAL2NAL
 
 # phylopypruner alignments sometimes have no residues and fewer than 7 seqs
+# this may no longer be the case in the current version of phylopypruner in which case you could use (```cp -R ../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 01-SEQS``` instead)
 remove_blank_seqs_and_fewer_than_n.pl --out_dir=01-SEQS --min_seq=7  --aln_dir=../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 
 ```
 
@@ -308,7 +299,7 @@ Unroot Orthofinder species tree in R
 mkdir /data1/GATORLINK/04-PAL2NAL/04-TREE
 cd /data1/GATORLINK/04-PAL2NAL/04-TREE
 
-cp ../../02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD/Species_Tree/SpeciesTree_rooted.txt rooted.tree
+cp ../../02-ORTHOFINDER/01-AA/OrthoFinder/Results_MonDD/Species_Tree/SpeciesTree_rooted.txt rooted.tree
 ```
 
 Now run R
