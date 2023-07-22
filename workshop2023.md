@@ -216,10 +216,13 @@ get_fasta_and_tree_w_min_number.pl \ --fa_dir=01-AA/OrthoFinder/Results_MMMDD/Mu
 ##### PHYLOPYPRUNER
 
 <table bgcolor=grey border=1><tr><td>
-<b>PhyloPyPruner - Pruning paralogous genes from each orthogroup
-<br><br>Orthologs are genes related through a speciation event, while paralogs are genes related through a gene duplication event. Paralogs create a challenge for phylogenomics since only a single gene can be represented in most phylogenomic analyses. 
-<br><br>PhyloPyPruner is a Python package for phylogenetic tree-based orthology inference, using the species overlap method. It uses trees and alignments inferred from the output of a graph-based orthology inference approach, such as <a href="https://www.ncbi.nlm.nih.gov/pubmed/12952885">OrthoMCL</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26243257">OrthoFinder</a> or <a href="https://www.ncbi.nlm.nih.gov/pubmed/19586527">HaMStR</a>, in order to obtain sets of sequences that are 1:1 orthologous. In addition to algorithms seen in pre-existing tree-based tools (for example, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3825643/">PhyloTreePruner</a>, <a href="https://academic.oup.com/mbe/article/33/8/2117/2578877">UPhO</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3840672/">Agalma</a>, or <a href="https://www.ncbi.nlm.nih.gov/pubmed/25158799">Phylogenomic Dataset Reconstruction</a>), this package provides new methods for reducing potential contamination.
-<br><br><a href="https://pypi.org/project/phylopypruner/">https://pypi.org/project/phylopypruner/</a>
+<b>PhyloPyPruner</b> - Pruning paralogous genes from each orthogroup
+
+Orthologs are genes related through a speciation event, while paralogs are genes related through a gene duplication event. Paralogs create a challenge for phylogenomics since only a single gene can be represented in most phylogenomic analyses. 
+
+PhyloPyPruner is a Python package for phylogenetic tree-based orthology inference, using the species overlap method. It uses trees and alignments inferred from the output of a graph-based orthology inference approach, such as <a href="https://www.ncbi.nlm.nih.gov/pubmed/12952885">OrthoMCL</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26243257">OrthoFinder</a> or <a href="https://www.ncbi.nlm.nih.gov/pubmed/19586527">HaMStR</a>, in order to obtain sets of sequences that are 1:1 orthologous. In addition to algorithms seen in pre-existing tree-based tools (for example, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3825643/">PhyloTreePruner</a>, <a href="https://academic.oup.com/mbe/article/33/8/2117/2578877">UPhO</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3840672/">Agalma</a>, or <a href="https://www.ncbi.nlm.nih.gov/pubmed/25158799">Phylogenomic Dataset Reconstruction</a>), this package provides new methods for reducing potential contamination.
+
+<a href="https://pypi.org/project/phylopypruner/">https://pypi.org/project/phylopypruner/</a>
 </td></tr></table>
 
 Run PhyloPyPruner
@@ -374,11 +377,11 @@ Copy aligned CDS files from PAL2NAL run:
 
 ```bash
 cp ../04-PAL2NAL/03-P2N/*.fa_align.fa 01-ALN/
-```
 
 # NOTE: some alignments have fewer than 7
-<br># NOTE: some alignments have no sequence data
-<br># NOTE: only those alignments with sequences from 7 taxa will work unless tree is pruned
+# NOTE: some alignments have no sequence data
+# NOTE: only those alignments with sequences from 7 taxa will work unless tree is pruned
+```
 
 <br><br>Run a single BUSTED
 
