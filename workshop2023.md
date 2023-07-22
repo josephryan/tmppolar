@@ -56,7 +56,9 @@ Species_F.fasta
 Species_H.fasta
 ```
 
-<table bgcolor=grey border=1><tr><td>TRINITY
+<table bgcolor=grey border=1><tr><td>
+<b>TRINITY</b>
+
 Assembling RNA-Seq data with Trinity is beyond the scope of this workshop. There is an excellent YouTube Video explaining details of Trinity algorithms from the author here: <a href="https://www.youtube.com/watch?v=NLzqvRo2qZs">https://www.youtube.com/watch?v=NLzqvRo2qZs</a>
 
 Here is a step-by-step tutorial: <a href="https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020">https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020</a>
@@ -150,7 +152,7 @@ ln -s ../../01-TRANSDECODER/*.transdecoder.pep .
 cd ..
 ```
 
-##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch) 
+##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch. You may want to use screen.) 
 
 ```bash
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
@@ -160,7 +162,8 @@ orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 
 <table bgcolor=grey border=1><tr><td>
 <b>Specifying tree inference, local alignment or MSA programs:</b> config.json
-<br>You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree provides a reasonable compromise. OrthoFinder already knows how to call:
+
+You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree provides a reasonable compromise. OrthoFinder already knows how to call:
 <br>mafft
 <br>muscle
 <br>iqtree
@@ -177,7 +180,7 @@ Often after running a large orthofinder analysis you may need to add or subtract
 
 ##### Orthofinder output
 
-Orthofinder output should be here (e.g., Results_MMMDD = Results_JUL25):   
+Orthofinder output should be here (e.g., Results_MMMDD = Results_JUL24):   
 
 ```bash
 /data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD
@@ -216,7 +219,7 @@ We will use the `get_fasta_and_tree_w_min_number.pl` script to copy the alignmen
 ```bash
 cd /data1/GATORLINK/02-ORTHOFINDER
 
-get_fasta_and_tree_w_min_number.pl \ --fa_dir=01-AA/OrthoFinder/Results_MMMDD/MultipleSequenceAlignments --tree_dir=01-AA/OrthoFinder/Results_MMMDD/Gene_Trees --out_dir=02-GFWMN --min_taxa=7
+get_fasta_and_tree_w_min_number.pl --fa_dir=01-AA/OrthoFinder/Results_MMMDD/MultipleSequenceAlignments --tree_dir=01-AA/OrthoFinder/Results_MMMDD/Gene_Trees --out_dir=02-GFWMN --min_taxa=7
 
 # we will use the output in 02-GFWMN for downstream analyses
 ```
@@ -277,7 +280,7 @@ Run pal2nal on the sequences in the cds and aa directories:
 
 ```bash
 run_pal2nal_on_cds_and_aa_dirs.pl --aa_dir=01-SEQS --cds_dir=02-CDS --outdir=03-P2N
-```bash
+```
 
 Unroot Orthofinder species tree in R
 
@@ -294,8 +297,8 @@ Now run R
 R
 ```
 
-From within R run the following
-<table bgcolor=grey border=1><tr><td>
+From within R run the following:
+
 ```R
 library(ape)
 tr <- read.tree("rooted.tree")
@@ -303,7 +306,6 @@ unrooted <- unroot(tr)
 write.tree(unrooted, "unrooted.tree")
 q()
 ```
-</td></tr></table>
 
 Edit species name in the unrooted tree
 
