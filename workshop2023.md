@@ -271,7 +271,7 @@ mkdir /data1/GATORLINK/04-PAL2NAL
 cd /data1/GATORLINK/04-PAL2NAL
 
 # phylopypruner alignments sometimes have no residues and fewer than 7 seqs
-# this may no longer be the case in the current version of phylopypruner in which case you could use (```cp -R ../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 01-SEQS``` instead)
+# this may no longer be the case in the current version of phylopypruner in which case you could use (`cp -R ../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 01-SEQS` instead)
 remove_blank_seqs_and_fewer_than_n.pl --out_dir=01-SEQS --min_seq=7  --aln_dir=../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 
 ```
 
