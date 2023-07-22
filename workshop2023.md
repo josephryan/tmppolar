@@ -83,17 +83,20 @@ cd /data1/GATORLINK/01-TRANSDECODER
 TransDecoder.LongOrfs -t ../00-DATA/Species_A.fasta >tdA.out 2>tdA.err
 
 # run TransDecoder.LongOrfs on the rest of the fasta files (for B-H)
-TransDecoder.LongOrfs -t ../00-DATA/Species_B.fasta >tdB.out 2>tdB.err
-TransDecoder.LongOrfs -t ../00-DATA/Species_C.fasta >tdC.out 2>tdC.err
-TransDecoder.LongOrfs -t ../00-DATA/Species_D.fasta >tdD.out 2>tdD.err
-TransDecoder.LongOrfs -t ../00-DATA/Species_E.fasta >tdE.out 2>tdE.err
-TransDecoder.LongOrfs -t ../00-DATA/Species_F.fasta >tdF.out 2>tdF.err
-TransDecoder.LongOrfs -t ../00-DATA/Species_H.fasta >tdH.out 2>tdH.err
+# note: the & at the end of the command will run the process in the
+#       background allowing you to run all of them at once
+TransDecoder.LongOrfs -t ../00-DATA/Species_B.fasta >tdB.out 2>tdB.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_C.fasta >tdC.out 2>tdC.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_D.fasta >tdD.out 2>tdD.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_E.fasta >tdE.out 2>tdE.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_F.fasta >tdF.out 2>tdF.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_H.fasta >tdH.out 2>tdH.err &
 ```
 
 ##### This will create directories  “Species_A.fasta.transdecoder_dir” which contain:
 
-```base_freqs.dat
+```bash
+base_freqs.dat
 base_freqs.dat.ok
 longest_orfs.cds
 longest_orfs.gff3
@@ -105,9 +108,14 @@ longest_orfs.pep
 We use diamond (a fast BLAST replacement) to identify translated sequences that have similarity to the swissprot database. The resulting reports will be used by TransDecoder.predict to more accurately predict ORFS
 
 ```bash
-diamond blastp -p 18 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_A.fasta.transdecoder_dir/longest_orfs.pep  > Sp_A.diamond.out 2> Sp_A.diamond.err
-
-# run diamond on the rest of the longest_orfs.pep (for B-H)
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_A.fasta.transdecoder_dir/longest_orfs.pep  > Sp_A.diamond.out 2> Sp_A.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_B.fasta.transdecoder_dir/longest_orfs.pep  > Sp_B.diamond.out 2> Sp_B.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_C.fasta.transdecoder_dir/longest_orfs.pep  > Sp_C.diamond.out 2> Sp_C.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_D.fasta.transdecoder_dir/longest_orfs.pep  > Sp_D.diamond.out 2> Sp_D.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_E.fasta.transdecoder_dir/longest_orfs.pep  > Sp_E.diamond.out 2> Sp_E.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_F.fasta.transdecoder_dir/longest_orfs.pep  > Sp_F.diamond.out 2> Sp_F.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_G.fasta.transdecoder_dir/longest_orfs.pep  > Sp_G.diamond.out 2> Sp_G.diamond.err &
+diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_H.fasta.transdecoder_dir/longest_orfs.pep  > Sp_H.diamond.out 2> Sp_H.diamond.err &
 ```
 
 ##### Step 3: predict the likely coding regions (>5 minutes)
@@ -155,10 +163,13 @@ cd ..
 ##### Run Orthofinder (~30 minutes; run in the background and we'll break for lunch.) 
 
 ```bash
-# MAY WANT TO INVOKE SCREEN HERE - ADJUST PATH
+# MAY WANT TO INVOKE SCREEN HERE
 # screen -S orthofinder
 
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
+
+# detach from screen
+screen -d
 ```
 
 ## BREAK FOR LUNCH
@@ -357,7 +368,7 @@ ln -s ../04-PAL2NAL/03-P2N/*.phy .
 Run CODEML (program within PAML that tests for selection; estimated time = 2+ hours?)
 
 ```bash
-# MAY WANT TO INVOKE SCREEN HERE - ADJUST PATH
+# MAY WANT TO INVOKE SCREEN HERE
 # screen -S paml
 
 run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy > rc.out 2> rc.err &
