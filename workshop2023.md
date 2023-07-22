@@ -1,6 +1,6 @@
 # Polar Genomics Workshop Pipeline
 
-At the start, you may want to search and replace "GATORLINK" with your gatorlink.
+Each occurrence of "GATORLINK" below should be replaced with your GATORLINK username. 
 
 ### SETUP
 
