@@ -6,5 +6,9 @@ instructions for running through workshop example set
 
 ### general.md
 
-instructions for setting up your own system
+instructions for running these analyses on your own system
+
+### 01-SCRIPTS
+
+utility scripts used in these analyses
 
