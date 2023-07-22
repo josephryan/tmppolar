@@ -17,18 +17,23 @@ conda activate /data1/jfryan2023/00-CONDA/polar
 ```
 
 <table bgcolor=grey border=1><tr><td><b>SCREEN</b>
-<br>Before running long-running processes, run the following: 
-<br>
-<br>	screen -S NAME_OF_SCREEN
-<br> 
-<br>To detach from a screen session type the following:
-<br> 
-<br>	Ctrl+a d      OR     screen -d
-<br>Make sure to reactivate conda environment after runnings screen
-<br> 
-<br>For info on using screen: https://linuxize.com/post/how-to-use-linux-screen/
-<br>
-<br>We mention where it's important to use screen below
+Before running long-running processes, run the following: 
+
+```bash
+screen -S NAME_OF_SCREEN
+```
+
+To detach from a screen session type the following:
+ 
+```bash
+Ctrl+a d      OR     screen -d
+```
+
+Make sure to reactivate conda environment after runnings screen
+ 
+For info on using screen: <a href="https://linuxize.com/post/how-to-use-linux-screen/">https://linuxize.com/post/how-to-use-linux-screen/</a>
+
+We mention where it's important to use screen below
 </td></tr></table>
 
 ### Data
