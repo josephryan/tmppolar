@@ -16,7 +16,7 @@ Activate the workshop conda image (this needs to be done with each new login)
 conda activate /data1/jfryan2023/00-CONDA/polar
 ```
 
-<table bgcolor=grey border=1><tr><td>SCREEN
+<table bgcolor=grey border=1><tr><td><b>SCREEN</b>
 <br>Before running long-running processes, run the following: 
 <br>
 <br>	screen -S NAME_OF_SCREEN
