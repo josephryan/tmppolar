@@ -16,7 +16,7 @@ Activate the workshop conda image (this needs to be done with each new login)
 conda activate /data1/jfryan2023/00-CONDA/polar
 ```
 
-<table border=1><tr><td bgcolor="gray">SCREEN
+<table bgcolor=grey border=1><tr><td>SCREEN
 <br>Before running long-running processes, run the following: 
 <br>
 <br>	screen -S NAME_OF_SCREEN
@@ -49,7 +49,7 @@ Species_F.fasta
 Species_H.fasta
 ```
 
-<table border=1><tr><td bgcolor="gray">TRINITY
+<table bgcolor=grey border=1><tr><td>TRINITY
 Assembling RNA-Seq data with Trinity is beyond the scope of this workshop. There is an excellent YouTube Video explaining details of Trinity algorithms from the author here: <a href="https://www.youtube.com/watch?v=NLzqvRo2qZs">https://www.youtube.com/watch?v=NLzqvRo2qZs</a>
 
 Here is a step-by-step tutorial: <a href="https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020">https://github.com/trinityrnaseq/KrumlovTrinityWorkshopJan2020</a>
@@ -123,11 +123,13 @@ Species_A.fasta.transdecoder.pep #(used in next step / orthofinder)
 
 ### Orthogroup Assignments
 
-<table border=1><tr><td bgcolor="gray">OrthoFinder
-OrthoFinder is a fast, accurate and comprehensive platform for comparative genomics. It finds orthogroups and orthologs, infers rooted gene trees for all orthogroups and identifies all of the gene duplication events in those gene trees. It also infers a rooted species tree for the species being analyzed and maps the gene duplication events from the gene trees to branches in the species tree. OrthoFinder also provides comprehensive statistics for comparative genomic analyses. OrthoFinder is simple to use and all you need to run it is a set of protein sequence files (one per species) in FASTA format.
+<table bgcolor=grey border=1><tr><td>
+<b>OrthoFinder</b>
+<br>OrthoFinder is a fast, accurate and comprehensive platform for comparative genomics. It finds orthogroups and orthologs, infers rooted gene trees for all orthogroups and identifies all of the gene duplication events in those gene trees. It also infers a rooted species tree for the species being analyzed and maps the gene duplication events from the gene trees to branches in the species tree. OrthoFinder also provides comprehensive statistics for comparative genomic analyses. OrthoFinder is simple to use and all you need to run it is a set of protein sequence files (one per species) in FASTA format.
+<br><br>
 For more details see the OrthoFinder papers below.
-Emms, D.M. and Kelly, S. (2019) OrthoFinder: phylogenetic orthology inference for comparative genomics. Genome Biology 20:238
-Emms, D.M. and Kelly, S. (2015) OrthoFinder: solving fundamental biases in whole genome comparisons dramatically improves orthogroup inference accuracy. Genome Biology 16:157
+<br>Emms, D.M. and Kelly, S. (2019) OrthoFinder: phylogenetic orthology inference for comparative genomics. <i>Genome Biology</i> 20:238
+<br>Emms, D.M. and Kelly, S. (2015) OrthoFinder: solving fundamental biases in whole genome comparisons dramatically improves orthogroup inference accuracy. <i>Genome Biology</i> 16:157
 <br> 
 HOMEPAGE: <a href="https://github.com/davidemms/OrthoFinder">https://github.com/davidemms/OrthoFinder</a>
 </td></tr></table>
@@ -149,4 +151,372 @@ orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 
 ## BREAK FOR LUNCH
 
+<table bgcolor=grey border=1><tr><td>
+<b>Specifying tree inference, local alignment or MSA programs:</b> config.json
+<br>You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree provides a reasonable compromise. OrthoFinder already knows how to call:
+<br>mafft
+<br>muscle
+<br>iqtree
+<br>raxml
+<br>raxml-ng
+<br>fasttree
+</td></tr></table>
+
+<table bgcolor=grey border=1><tr><td>
+<b>Adding and/or subtracting species from an orthofinder analysis</b>
+<br><br>Often after running a large orthofinder analysis you may need to add or subtract species from your study.  For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis.  See the documentation.
+</td></tr></table>
+
+##### Orthofinder output
+
+Orthofinder output should be here (e.g., Results_MMMDD = Results_JUL25):   
+
+```bash
+/data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD
+```
+
+View overall stats:
+
+```bash
+cd /data1/GATORLINK/02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD
+```
+
+```bash
+less Comparative_Genomics_Statistics/Statistics_Overall.tsv
+   # to exit less, type 'q'
+```
+
+Other potentially interesting stats:
+
+```bash
+less Duplications_per_Orthogroup.tsv
+less Orthogroups_SpeciesOverlaps.tsv
+less OrthologuesStats_many-to-one.tsv
+less OrthologuesStats_one-to-one.tsv
+less Statistics_Overall.tsv
+less Duplications_per_Species_Tree_Node.tsv
+less OrthologuesStats_many-to-many.tsv
+less OrthologuesStats_one-to-many.tsv
+less OrthologuesStats_Totals.tsv
+less Statistics_PerSpecies.tsv
+```
+
+##### Gathering the datasets and trees that contain all seven species
+ 
+We will use the `get_fasta_and_tree_w_min_number.pl` script to copy the alignments and corresponding gene trees that include all 7 species into a new folder that we name `02-GFWMN`.  The script takes 4 arguments: (1) FASTA directory, (2) Gene_Trees directory, (3) output directory, and (4) the minimum number of species in the alignment.
+ 
+```bash
+cd /data1/GATORLINK/02-ORTHOFINDER
+
+get_fasta_and_tree_w_min_number.pl \ --fa_dir=01-AA/OrthoFinder/Results_MMMDD/MultipleSequenceAlignments --tree_dir=01-AA/OrthoFinder/Results_MMMDD/Gene_Trees --out_dir=02-GFWMN --min_taxa=7
+
+# we will use the output in 02-GFWMN for downstream analyses
+```
+
+##### PHYLOPYPRUNER
+
+<table bgcolor=grey border=1><tr><td>
+<b>PhyloPyPruner - Pruning paralogous genes from each orthogroup
+<br><br>Orthologs are genes related through a speciation event, while paralogs are genes related through a gene duplication event. Paralogs create a challenge for phylogenomics since only a single gene can be represented in most phylogenomic analyses. 
+<br><br>PhyloPyPruner is a Python package for phylogenetic tree-based orthology inference, using the species overlap method. It uses trees and alignments inferred from the output of a graph-based orthology inference approach, such as <a href="https://www.ncbi.nlm.nih.gov/pubmed/12952885">OrthoMCL</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26243257">OrthoFinder</a> or <a href="https://www.ncbi.nlm.nih.gov/pubmed/19586527">HaMStR</a>, in order to obtain sets of sequences that are 1:1 orthologous. In addition to algorithms seen in pre-existing tree-based tools (for example, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3825643/">PhyloTreePruner</a>, <a href="https://academic.oup.com/mbe/article/33/8/2117/2578877">UPhO</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3840672/">Agalma</a>, or <a href="https://www.ncbi.nlm.nih.gov/pubmed/25158799">Phylogenomic Dataset Reconstruction</a>), this package provides new methods for reducing potential contamination.
+<br><br><a href="https://pypi.org/project/phylopypruner/">https://pypi.org/project/phylopypruner/</a>
+</td></tr></table>
+
+Run PhyloPyPruner
+
+```bash
+mkdir /data1/GATORLINK/03-PHYLOPYPRUNER
+cd /data1/GATORLINK/03-PHYLOPYPRUNER
+
+phylopypruner --threads 18 --output . --dir ../02-ORTHOFINDER/02-GFWMN --mask longest --min-support 0.5 --min-taxa 7 --prune MI > pp.out 2> pp.err
+```
+
+Pruned alignments are created in this directory:
+
+```bash
+/data1/GATORLINK/03-PHYLOPYPRUNER/phylopypruner_output/output_alignments
+```
+
+#####PAL2NAL (align cds based on aa alignment)
+
+Create a new directory and copy pruned alignments to this directory
+
+```bash
+mkdir /data1/GATORLINK/04-PAL2NAL
+
+cd /data1/GATORLINK/04-PAL2NAL
+
+# phylopypruner alignments sometimes have no residues and fewer than 7 seqs
+remove_blank_seqs_and_fewer_than_n.pl --out_dir=01-SEQS --min_seq=7  --aln_dir=../03-PHYLOPYPRUNER/phylopypruner_output/output_alignments 
+```
+
+Get CDS files that correspond with each of the pruned AA files
+
+```bash
+get_corresponding_cds.pl ../01-TRANSDECODER 01-SEQS 02-CDS
+```
+  
+Adjust names of sequences to only include species names: Trimtopipe.pl
+
+```bash
+perl -pi -e 's/^>([^|]+)\|.*/>$1/' 01-SEQS/* 02-CDS/*
+```
+
+Run pal2nal on the sequences in the cds and aa directories: 
+
+```bash
+run_pal2nal_on_cds_and_aa_dirs.pl --aa_dir=01-SEQS --cds_dir=02-CDS --outdir=03-P2N
+```bash
+
+Unroot Orthofinder species tree in R
+
+```bash
+mkdir /data1/GATORLINK/04-PAL2NAL/04-TREE
+cd /data1/GATORLINK/04-PAL2NAL/04-TREE
+
+cp ../../02-ORTHOFINDER/01-AA/OrthoFinder/Results_MMMDD/Species_Tree/SpeciesTree_rooted.txt rooted.tree
+```
+
+Now run R
+
+```bash
+R
+```
+
+From within R run the following
+<table bgcolor=grey border=1><tr><td>
+```R
+library(ape)
+tr <- read.tree("rooted.tree")
+unrooted <- unroot(tr)
+write.tree(unrooted, "unrooted.tree")
+q()
+```
+</td></tr></table>
+
+Edit species name in the unrooted tree
+
+```bash
+# Before
+cat unrooted.tree
+
+perl -pi -e 's/.fasta.transdecoder//g' unrooted.tree
+
+# After
+cat unrooted.tree
+```
+
+##### PAML
+
+```bash
+mkdir -p /data1/GATORLINK/05-PAML
+
+cd /data1/GATORLINK/05-PAML
+```
+
+Copy unrooted tree for PAML
+
+```bash
+cp ../04-PAL2NAL/04-TREE/unrooted.tree .
+```
+
+Annotate PAML tree ('unrooted.tree') by adding #1 after species name on foreground branches; branches A,B,C,D.
+
+```bash
+# Before
+cat unrooted.tree
+
+perl -pi -e 's/(Species_[ABCD])/$1#1/g' unrooted.tree
+
+# After
+cat unrooted.tree
+```
+
+Create symbolic links to the Pal2Nal alignments in the 05-PAML directory
+
+```bash
+ln -s ../04-PAL2NAL/03-P2N/*.phy .
+```
+
+Run CODEML (program within PAML that tests for selection; estimated time = 2+ hours?)
+
+```bash
+# MAY WANT TO INVOKE SCREEN HERE - ADJUST PATH
+# screen -S paml
+
+run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy \
+> rc.out 2> rc.err &
+
+# check progress
+tail -f rc.out
+# [CONTROL]+c   (to exit)
+ 
+# detach from screen
+screen -d
+```
+ 
+#####HYPHY (make sure conda polar environment is activated)
+
+```bash
+mkdir -p /data1/GATORLINK/06-HYPHY/01-ALN
+
+cd /data1/GATORLINK/06-HYPHY
+```
+
+Annotate HYPHY tree ('unrooted.tree') by adding {Foreground} after species name on foreground branches for tree file; branches A,B,C,D. 
+ 
+```bash
+cp ../04-PAL2NAL/04-TREE/unrooted.tree .
+
+perl -pi -e 's/(Species_[ABCD])/$1\{Foreground\}/g' unrooted.tree
+```
+
+Copy aligned CDS files from PAL2NAL run:
+
+```bash
+cp ../04-PAL2NAL/03-P2N/*.fa_align.fa 01-ALN/
+```
+
+# NOTE: some alignments have fewer than 7
+<br># NOTE: some alignments have no sequence data
+<br># NOTE: only those alignments with sequences from 7 taxa will work unless tree is pruned
+
+<br><br>Run a single BUSTED
+
+```bash
+hyphy busted --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
+  --tree unrooted.tree --branches Foreground --output OG0007770.Busted.jason
+```
+
+Run a single aBSREL
+
+```bash
+hyphy aBSREL --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
+  --tree unrooted.tree --branches Foreground --output OG0007770.aBSREL.jason
+```
+
+Run a single MEME
+
+```bash
+hyphy meme --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
+  --tree unrooted.tree --branches Foreground --output OG0007770.meme.jason
+```
+
+Run a single RELAX (note: RELAX use --test instead of --branches to specify branches) 
+
+```bash
+hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa \
+  --tree unrooted.tree --test Foreground --output OG0007770.meme.jason
+```
+
+Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
+
+```bash
+busted_absrel_meme.pl --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy
+``` 
+
+##### Parsing results
+ 
+PAML ALT versus NULL models
+ 
+<br><br>Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using grep you can now gather all of the lnL values for each model.
+Example (degrees of freedom depends on the number of branches in your tree)
+ 
+```bash
+grep lnL *.alt.codeml > ALT_lnL_list.txt
+
+grep lnL *.null.codeml > Null_lnL_list.txt
+```
+
+#####Significance
+
+Import these lists into Excel and use a chisquare test of significance.
+ 
+```bash
+CODEML_Results 2*(lnL1(ALT)-lnL0(NULL))=CHISQ.DIST(X,1, FALSE)
+```
+ 
+<br><br>The resulting P-values may be corrected for multiple comparisons using Benjamini and Hochberg (1995;2010) using R or simply use the website listed below.
+<a href="https://www.sdmproject.com/utilities/?show=FDR">https://www.sdmproject.com/utilities/?show=FDR</a>
+ 
+<br><br>Below are some of the important results you should look at in your MCL_ALT_files if the likelihood ratio test is significant.
+ 
+<br><br>MLEs of dN/dS (w) for site classes (K=4) site class 0 1 2a 2b proportion 0.74271 0.24369 0.01024 0.00336 background w 0.06038 1.00000 0.06038 1.00000 foreground w 0.06038 1.00000 176.87071 176.87071
+ 
+<br><br>M0 : Proportion of sites that are under purifying selection (ω0 < 1) on both foreground and background branches. M1 : Proportion of sites that are under neutral evolution (ω1 = 1) on both foreground and background branches. M2a: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under purifying selection (ω0 < 1) on background branches. M2b: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under neutral evolution (ω1 = 1) on background branches.
+ 
+<br><br>Bayes Empirical Bayes (BEB) analysis (Yang, Wong & Nielsen 2005. Mol. Biol. Evol. 22:1107-1118) Positive sites for foreground lineages Prob(w>1): 33 T 0.975* 108 E 0.999**
+ 
+<br><br>See Bielawski et al, 2016
+ 
+<br><br>You will need to identify the resulting significant candidate genes under positive selection. If you are familiar with batch BLAST searches, use what you like but I suggest making a batch query file from a representative peptide sequence from each of your peptide alignment files. Again, there are many ways to do this, but one example is listed below.
+ 
+<br><br>Extract the first sequence from each peptide alignment file.
+ 
+```bash
+for file in *.pep.fa; do awk '/^>/{if(N)exit;++N;} {print;}' $file > "$(basename "$file" .tex)_seq1.fasta"; done
+```
+ 
+Then you can cat all of those sequences with their alignment IDs into one fasta file.
+ 
+```bash
+cat *._seq1.fasta > candidategenes.fasta
+ 
+blastp -query candidategenes.fasta -num_threads 8 -outfmt '6 qseqid sseqid pident length evalue bitscore staxids sscinames scomnames sskingdoms stitle' -max_target_seqs 1 -seg yes -evalue 0.001 -db nr -out Candidategenes_blastp 2> Candidategenes.err
+```
+ 
+NOTE: You may want to make your own blastp reference database of a subset of relevant sequences or use the entire blastp database if you have everything already installed on a local machine. Obviously you can adjust many options in the above search, particularly the number of maximum target sequences/evalue for genes with ambiguous identitities.
+ 
+```bash
+makeblastdb -dbtype prot -in Relevant.fasta -out RelevantDBseqs.fasta
+```
+ 
+#####HYPHY JSON File Parsing
+ 
+Results will be found in OG0008203.BUSTED.json. You can quickly assess whether the test was significant or not by using grep.
+ 
+```bash
+grep p-value *.busted.out > busted_results.txt
+```
+ 
+"p-value":1.269001392856239e-08
+ 
+<br><br>The results may also be parsed using Hyphy-Vision (http://vision.hyphy.org)
+ 
+```bash
+grep '"Corrected P-value":' *.ABSREL.json > ABS_pvalues.txt
+```
+ 
+Meme Parsing?: <a href="https://github.com/sjspielman/phyphy">https://github.com/sjspielman/phyphy</a>
+ 
+END DAY One of Workshop.
+ 
+#####References
+<br>Benjamini Y. 2010. Discovering the false discovery rate. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 72:405–416.
+
+<br><br>Bielawski JP, Baker JL, Mingrone J. 2016. Inference of Episodic Changes in Natural Selection Acting on Protein Coding Sequences via CODEML. Curr Protoc Bioinformatics 54:6.15.1–6.15.32.
+
+<br><br>Gharib WH, Robinson-Rechavi M. 2013. The branch-site test of positive selection is surprisingly robust but lacks power under synonymous substitution saturation and variation in GC. Molecular Biology and Evolution 30:1675–1686.
+
+<br><br>Murrell B, Weaver S, Smith MD, Wertheim JO, Murrell S, Aylward A, Eren K, Pollner T, Martin DP, Smith DM, Scheffler K, Kosakovsky Pond SL. 2015. Gene-Wide Identification of Episodic Selection. Molecular Biology and Evolution 32:1365–1371.
+
+<br><br>Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. 2012. Detecting Individual Sites Subject to Episodic Diversifying Selection. PLoS Genet 8:1-10.
+
+<br><br>Smith MD, Wertheim JO, Weaver S, Murrell B, Scheffler K, Kosakovsky Pond SL. 2015. Less Is More: An Adaptive Branch-Site Random Effects Model for Efficient Detection of Episodic Diversifying Selection. Molecular Biology and Evolution 32:1342–1353.
+
+<br><br>Stamatakis A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30:1312–1313.
+
+<br><br>Steinegger M, Meier M, Mirdita M, Vöhringer H, Haunsberger SJ, Söding J. 2019. HH-suite3 for fast remote homology detection and deep protein annotation. BMC Bioinformatics 20:1–15.
+
+<br><br>Suyama M, Torrents D, Bork P. 2006. PAL2NAL: robust conversion of protein sequence alignments into the corresponding codon alignments. Nucleic Acids Research 34:W609–12.
+
+<br><br>Thomas PD, Campbell MJ, Kejariwal A, Mi H, Karlak B, Daverman R, Diemer K, Muruganujan A, Narechania A. 2003. PANTHER: A Library of Protein Families and Subfamilies Indexed by Function. Genome Res 13:2129–2141.
+
+<br><br>Yang Z, Nielsen R, Goldman N, Pedersen AM. 2000. Codon-substitution models for heterogeneous selection pressure at amino acid sites. Genetics 155:431–449.
+
+<br><br>Yang Z, Reis dos M. 2011. Statistical Properties of the Branch-Site Test of Positive Selection. Molecular Biology and Evolution 28:1217–1228.
+
+<br><br>Yang Z, Wong WSW, Nielsen R. 2005. Bayes empirical bayes inference of amino acid sites under positive selection. Molecular Biology and Evolution 22:1107–1118.
+
+<br><br>Zhang J. 2005. Evaluation of an Improved Branch-Site Likelihood Method for Detecting Positive Selection at the Molecular Level. Molecular Biology and Evolution 22:2472–2479.
 
