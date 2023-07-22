@@ -431,7 +431,7 @@ hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.
 Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
 
 ```bash
-busted_absrel_meme.pl --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy
+run_hyphy.pl --absrel --busted --meme --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy --require_num_seqs=7
 ``` 
 
 ##### Parsing results
