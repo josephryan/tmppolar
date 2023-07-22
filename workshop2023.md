@@ -90,6 +90,7 @@ TransDecoder.LongOrfs -t ../00-DATA/Species_C.fasta >tdC.out 2>tdC.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_D.fasta >tdD.out 2>tdD.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_E.fasta >tdE.out 2>tdE.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_F.fasta >tdF.out 2>tdF.err &
+TransDecoder.LongOrfs -t ../00-DATA/Species_G.fasta >tdG.out 2>tdG.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_H.fasta >tdH.out 2>tdH.err &
 ```
 
@@ -129,8 +130,6 @@ TransDecoder.Predict -t ../00-DATA/Species_E.fasta --retain_blastp_hits Sp_E.dia
 TransDecoder.Predict -t ../00-DATA/Species_F.fasta --retain_blastp_hits Sp_F.diamond.out --cpu 18 > Sp_F.td.p.out 2> Sp_F.td.p.err &
 TransDecoder.Predict -t ../00-DATA/Species_G.fasta --retain_blastp_hits Sp_G.diamond.out --cpu 18 > Sp_G.td.p.out 2> Sp_G.td.p.err &
 TransDecoder.Predict -t ../00-DATA/Species_H.fasta --retain_blastp_hits Sp_H.diamond.out --cpu 18 > Sp_H.td.p.out 2> Sp_H.td.p.err &
-
-# run TransDecoder.Predict on the rest of the files in ../00-DATA (for B-H)
 ```
 
 ##### TransDecoder output
