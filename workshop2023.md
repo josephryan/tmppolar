@@ -278,10 +278,10 @@ remove_blank_seqs_and_fewer_than_n.pl --out_dir=01-SEQS --min_seq=7  --aln_dir=.
 Get CDS files that correspond with each of the pruned AA files
 
 ```bash
-get_corresponding_cds.pl ../01-TRANSDECODER 01-SEQS 02-CDS
+get_corresponding_cds.pl --cds_dir=../01-TRANSDECODER --aa_dir=01-SEQS --out_dir=02-CDS
 ```
   
-Adjust names of sequences to only include species names: Trimtopipe.pl
+Adjust names of sequences to only include species names.
 
 ```bash
 perl -pi -e 's/^>([^|]+)\|.*/>$1/' 01-SEQS/* 02-CDS/*
