@@ -12,6 +12,10 @@ make install
 
 script to generate Makefile
 
+### codeml_chisquare.pl
+
+run ChiSquare analyses on codeml outputs
+
 ### get_corresponding_cds.pl
 
 Get CDS files that correspond with pruned AA files
