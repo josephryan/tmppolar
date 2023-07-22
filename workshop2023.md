@@ -90,7 +90,6 @@ TransDecoder.LongOrfs -t ../00-DATA/Species_C.fasta >tdC.out 2>tdC.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_D.fasta >tdD.out 2>tdD.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_E.fasta >tdE.out 2>tdE.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_F.fasta >tdF.out 2>tdF.err &
-TransDecoder.LongOrfs -t ../00-DATA/Species_G.fasta >tdG.out 2>tdG.err &
 TransDecoder.LongOrfs -t ../00-DATA/Species_H.fasta >tdH.out 2>tdH.err &
 ```
 
@@ -115,7 +114,6 @@ diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_C.fasta.t
 diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_D.fasta.transdecoder_dir/longest_orfs.pep  > Sp_D.diamond.out 2> Sp_D.diamond.err &
 diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_E.fasta.transdecoder_dir/longest_orfs.pep  > Sp_E.diamond.out 2> Sp_E.diamond.err &
 diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_F.fasta.transdecoder_dir/longest_orfs.pep  > Sp_F.diamond.out 2> Sp_F.diamond.err &
-diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_G.fasta.transdecoder_dir/longest_orfs.pep  > Sp_G.diamond.out 2> Sp_G.diamond.err &
 diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_H.fasta.transdecoder_dir/longest_orfs.pep  > Sp_H.diamond.out 2> Sp_H.diamond.err &
 ```
 
@@ -128,7 +126,6 @@ TransDecoder.Predict -t ../00-DATA/Species_C.fasta --retain_blastp_hits Sp_C.dia
 TransDecoder.Predict -t ../00-DATA/Species_D.fasta --retain_blastp_hits Sp_D.diamond.out --cpu 18 > Sp_D.td.p.out 2> Sp_D.td.p.err &
 TransDecoder.Predict -t ../00-DATA/Species_E.fasta --retain_blastp_hits Sp_E.diamond.out --cpu 18 > Sp_E.td.p.out 2> Sp_E.td.p.err &
 TransDecoder.Predict -t ../00-DATA/Species_F.fasta --retain_blastp_hits Sp_F.diamond.out --cpu 18 > Sp_F.td.p.out 2> Sp_F.td.p.err &
-TransDecoder.Predict -t ../00-DATA/Species_G.fasta --retain_blastp_hits Sp_G.diamond.out --cpu 18 > Sp_G.td.p.out 2> Sp_G.td.p.err &
 TransDecoder.Predict -t ../00-DATA/Species_H.fasta --retain_blastp_hits Sp_H.diamond.out --cpu 18 > Sp_H.td.p.out 2> Sp_H.td.p.err &
 ```
 
