@@ -180,19 +180,22 @@ screen -d
 <table bgcolor=grey border=1><tr><td>
 <b>Specifying tree inference, local alignment or MSA programs:</b> config.json
 
-You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree provides a reasonable compromise. OrthoFinder already knows how to call:
-<br>mafft
-<br>muscle
-<br>iqtree
-<br>raxml
-<br>raxml-ng
-<br>fasttree
+You can use any alignment or tree inference program you like the best! Be careful with the method you chose, OrthoFinder typically needs to infer about 10,000-20,000 gene trees. If you have many species or if the tree/alignment method isn't super-fast then this can take a very long time! MAFFT + FastTree (the defaults) provide a reasonable compromise between speed and accuracy. There are options within OrthoFinder to use these other programs:
+<br>muscle (alignment)
+<br>iqtree (tree)
+<br>raxml (tree)
+<br>raxml-ng (tree)
+
+For example, to use muscle and iqtree, the command like arguments would be:
+```bash
+-M msa -A muscle -T iqtree
+```
 </td></tr></table>
 
 <table bgcolor=grey border=1><tr><td>
 <b>Adding and/or subtracting species from an orthofinder analysis</b>
 
-Often after running a large orthofinder analysis you may need to add or subtract species from your study.  For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis.  See the documentation.
+Often after running a large orthofinder analysis, you may need to add or subtract species from your study. For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis. See the documentation.
 </td></tr></table>
 
 ##### Orthofinder output
@@ -231,7 +234,7 @@ less Statistics_PerSpecies.tsv
 
 ##### Gathering the datasets and trees that contain all seven species
  
-We will use the `get_fasta_and_tree_w_min_number.pl` script to copy the alignments and corresponding gene trees that include all 7 species into a new folder that we name `02-GFWMN`.  The script takes 4 arguments: (1) FASTA directory, (2) Gene_Trees directory, (3) output directory, and (4) the minimum number of species in the alignment.
+We will use the `get_fasta_and_tree_w_min_number.pl` script to copy the alignments and corresponding gene trees that include all 7 species into a new folder that we name `02-GFWMN`. The script takes 4 arguments: (1) FASTA directory, (2) Gene_Trees directory, (3) output directory, and (4) the minimum number of species in the alignment.
  
 ```bash
 cd /data1/GATORLINK/02-ORTHOFINDER
