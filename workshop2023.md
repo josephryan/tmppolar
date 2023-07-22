@@ -33,14 +33,16 @@ conda activate /data1/jfryan2023/00-CONDA/polar
 
 ### Data
 
-Each of you have this folder (actually a link to a read-only folder):
+Each of you have this folder (actually a link to a read-only folder) in your main working directory:
  
-```/data1/GATORLINK/00-DATA
+```bash
+/data1/GATORLINK/00-DATA
 ```
 
 The folder contains the following sequence files:
 
-```Species_A.fasta
+```bash
+Species_A.fasta
 Species_B.fasta
 Species_C.fasta
 Species_D.fasta
@@ -126,7 +128,7 @@ Species_A.fasta.transdecoder.pep #(used in next step / orthofinder)
 <table bgcolor=grey border=1><tr><td>
 <b>OrthoFinder</b>
 <br>OrthoFinder is a fast, accurate and comprehensive platform for comparative genomics. It finds orthogroups and orthologs, infers rooted gene trees for all orthogroups and identifies all of the gene duplication events in those gene trees. It also infers a rooted species tree for the species being analyzed and maps the gene duplication events from the gene trees to branches in the species tree. OrthoFinder also provides comprehensive statistics for comparative genomic analyses. OrthoFinder is simple to use and all you need to run it is a set of protein sequence files (one per species) in FASTA format.
-<br><br>
+
 For more details see the OrthoFinder papers below.
 <br>Emms, D.M. and Kelly, S. (2019) OrthoFinder: phylogenetic orthology inference for comparative genomics. <i>Genome Biology</i> 20:238
 <br>Emms, D.M. and Kelly, S. (2015) OrthoFinder: solving fundamental biases in whole genome comparisons dramatically improves orthogroup inference accuracy. <i>Genome Biology</i> 16:157
@@ -164,7 +166,8 @@ orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 
 <table bgcolor=grey border=1><tr><td>
 <b>Adding and/or subtracting species from an orthofinder analysis</b>
-<br><br>Often after running a large orthofinder analysis you may need to add or subtract species from your study.  For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis.  See the documentation.
+
+Often after running a large orthofinder analysis you may need to add or subtract species from your study.  For large studies, it can take a long time to start over. Orthofinder allows you to add and/or subtract species from an analysis.  See the documentation.
 </td></tr></table>
 
 ##### Orthofinder output
@@ -383,7 +386,7 @@ cp ../04-PAL2NAL/03-P2N/*.fa_align.fa 01-ALN/
 # NOTE: only those alignments with sequences from 7 taxa will work unless tree is pruned
 ```
 
-<br><br>Run a single BUSTED
+Run a single BUSTED
 
 ```bash
 hyphy busted --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.Busted.jason
@@ -417,7 +420,7 @@ busted_absrel_meme.pl --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --p
  
 PAML ALT versus NULL models
  
-<br><br>Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using grep you can now gather all of the lnL values for each model.
+Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using grep you can now gather all of the lnL values for each model.
 Example (degrees of freedom depends on the number of branches in your tree)
  
 ```bash
@@ -434,22 +437,22 @@ Import these lists into Excel and use a chisquare test of significance.
 CODEML_Results 2*(lnL1(ALT)-lnL0(NULL))=CHISQ.DIST(X,1, FALSE)
 ```
  
-<br><br>The resulting P-values may be corrected for multiple comparisons using Benjamini and Hochberg (1995;2010) using R or simply use the website listed below.
+The resulting P-values may be corrected for multiple comparisons using Benjamini and Hochberg (1995;2010) using R or simply use the website listed below.
 <a href="https://www.sdmproject.com/utilities/?show=FDR">https://www.sdmproject.com/utilities/?show=FDR</a>
  
-<br><br>Below are some of the important results you should look at in your MCL_ALT_files if the likelihood ratio test is significant.
+Below are some of the important results you should look at in your MCL_ALT_files if the likelihood ratio test is significant.
  
-<br><br>MLEs of dN/dS (w) for site classes (K=4) site class 0 1 2a 2b proportion 0.74271 0.24369 0.01024 0.00336 background w 0.06038 1.00000 0.06038 1.00000 foreground w 0.06038 1.00000 176.87071 176.87071
+MLEs of dN/dS (w) for site classes (K=4) site class 0 1 2a 2b proportion 0.74271 0.24369 0.01024 0.00336 background w 0.06038 1.00000 0.06038 1.00000 foreground w 0.06038 1.00000 176.87071 176.87071
  
-<br><br>M0 : Proportion of sites that are under purifying selection (ω0 < 1) on both foreground and background branches. M1 : Proportion of sites that are under neutral evolution (ω1 = 1) on both foreground and background branches. M2a: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under purifying selection (ω0 < 1) on background branches. M2b: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under neutral evolution (ω1 = 1) on background branches.
+M0 : Proportion of sites that are under purifying selection (ω0 < 1) on both foreground and background branches. M1 : Proportion of sites that are under neutral evolution (ω1 = 1) on both foreground and background branches. M2a: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under purifying selection (ω0 < 1) on background branches. M2b: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under neutral evolution (ω1 = 1) on background branches.
  
-<br><br>Bayes Empirical Bayes (BEB) analysis (Yang, Wong & Nielsen 2005. Mol. Biol. Evol. 22:1107-1118) Positive sites for foreground lineages Prob(w>1): 33 T 0.975* 108 E 0.999**
+Bayes Empirical Bayes (BEB) analysis (Yang, Wong & Nielsen 2005. Mol. Biol. Evol. 22:1107-1118) Positive sites for foreground lineages Prob(w>1): 33 T 0.975* 108 E 0.999**
  
-<br><br>See Bielawski et al, 2016
+See Bielawski et al, 2016
  
-<br><br>You will need to identify the resulting significant candidate genes under positive selection. If you are familiar with batch BLAST searches, use what you like but I suggest making a batch query file from a representative peptide sequence from each of your peptide alignment files. Again, there are many ways to do this, but one example is listed below.
+You will need to identify the resulting significant candidate genes under positive selection. If you are familiar with batch BLAST searches, use what you like but I suggest making a batch query file from a representative peptide sequence from each of your peptide alignment files. Again, there are many ways to do this, but one example is listed below.
  
-<br><br>Extract the first sequence from each peptide alignment file.
+Extract the first sequence from each peptide alignment file.
  
 ```bash
 for file in *.pep.fa; do awk '/^>/{if(N)exit;++N;} {print;}' $file > "$(basename "$file" .tex)_seq1.fasta"; done
@@ -479,7 +482,7 @@ grep p-value *.busted.out > busted_results.txt
  
 "p-value":1.269001392856239e-08
  
-<br><br>The results may also be parsed using Hyphy-Vision (http://vision.hyphy.org)
+The results may also be parsed using Hyphy-Vision (http://vision.hyphy.org)
  
 ```bash
 grep '"Corrected P-value":' *.ABSREL.json > ABS_pvalues.txt
