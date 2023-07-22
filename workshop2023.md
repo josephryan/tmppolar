@@ -122,6 +122,13 @@ diamond blastp -p 3 -e 1e-5 -d /usr/local/uniprot/swissprot -q Species_H.fasta.t
 
 ```bash
 TransDecoder.Predict -t ../00-DATA/Species_A.fasta --retain_blastp_hits Sp_A.diamond.out --cpu 18 > Sp_A.td.p.out 2> Sp_A.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_B.fasta --retain_blastp_hits Sp_B.diamond.out --cpu 18 > Sp_B.td.p.out 2> Sp_B.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_C.fasta --retain_blastp_hits Sp_C.diamond.out --cpu 18 > Sp_C.td.p.out 2> Sp_C.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_D.fasta --retain_blastp_hits Sp_D.diamond.out --cpu 18 > Sp_D.td.p.out 2> Sp_D.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_E.fasta --retain_blastp_hits Sp_E.diamond.out --cpu 18 > Sp_E.td.p.out 2> Sp_E.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_F.fasta --retain_blastp_hits Sp_F.diamond.out --cpu 18 > Sp_F.td.p.out 2> Sp_F.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_G.fasta --retain_blastp_hits Sp_G.diamond.out --cpu 18 > Sp_G.td.p.out 2> Sp_G.td.p.err &
+TransDecoder.Predict -t ../00-DATA/Species_H.fasta --retain_blastp_hits Sp_H.diamond.out --cpu 18 > Sp_H.td.p.out 2> Sp_H.td.p.err &
 
 # run TransDecoder.Predict on the rest of the files in ../00-DATA (for B-H)
 ```
