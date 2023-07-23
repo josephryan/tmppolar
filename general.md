@@ -1,6 +1,6 @@
 # Instructions for running Polar Genomics Workshop Pipeline on your own system
 
-### Install Prerequesistes
+### Install requirements / configure environment
 
 ```bash
 conda create --name polar -y python=3.7
@@ -11,10 +11,9 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 
-conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal hyphy
+conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal hyphy paml
 conda install -y -c conda-forge r-ape
-cpan URI::Escape
-cpan Statistics::Distributions
+cpan URI::Escape Statistics::Distributions
 pip install phylopypruner   
 ```
 
