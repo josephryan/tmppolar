@@ -34,3 +34,13 @@ make
 make install
 ```
 
+### Install SwissProt Database
+
+```bash
+wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+gzip -d uniprot_sprot.fasta.gz
+diamond makedb uniprot_sprot.fasta
+```
+you will need to adjust the line diamond commands in the pipeline to point to the full path of this database `uniprot_sprot.fasta` rather than `/usr/local/uniprot/swissprot`.
+
+
