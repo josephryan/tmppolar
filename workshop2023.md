@@ -21,7 +21,11 @@ Before running long-running processes, run the following:
 
 ```bash
 screen -S NAME_OF_SCREEN
+
+# you need to activate conda env within screen
+conda activate /data1/jfryan2023/00-CONDA/polar
 ```
+
 
 To detach from a screen session type the following:
  
@@ -168,6 +172,7 @@ cd ..
 ```bash
 # MAY WANT TO INVOKE SCREEN HERE
 # screen -S orthofinder
+# conda activate /data1/jfryan2023/00-CONDA/polar
 
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 
@@ -367,6 +372,7 @@ Run CODEML (program within PAML that tests for selection; estimated time = 2+ ho
 ```bash
 # MAY WANT TO INVOKE SCREEN HERE
 # screen -S paml
+# conda activate /data1/jfryan2023/00-CONDA/polar
 
 run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy > rc.out 2> rc.err &
 
@@ -375,7 +381,7 @@ tail -f rc.out
 # [CONTROL]+c   (to exit)
  
 # detach from screen
-screen -d
+# screen -d
 ```
  
 ##### HYPHY (make sure conda polar environment is activated)
@@ -431,23 +437,35 @@ hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.
 Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
 
 ```bash
-run_hyphy.pl --absrel --busted --meme --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy --require_num_seqs=7
+# probably want to run screen here
+screen -S hyphy
+conda activate /data1/jfryan2023/00-CONDA/polar
+
+run_hyphy.pl --absrel --busted --meme --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy --require_num_seqs=7 &
+
+# detach from screen
+screen -d
 ``` 
 
 ##### Parsing results
  
 PAML ALT versus NULL models
  
-Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using grep you can now gather all of the lnL values for each model.
+Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using the codeml_chisquare.pl you can generate p-values. The script calculates the cumulative probability of the chi-square distribution, given the degrees of freedom (DF = number of sequences) and the chi-square test statistic (`X`) which is: 2*(lnL1(ALT)-lnL0(NULL)). The p-value is then computed as 1 - chisqrprob(DF, X).
+
+
 Example (degrees of freedom depends on the number of branches in your tree)
  
 ```bash
-grep lnL *.alt.codeml > ALT_lnL_list.txt
+mkdir /data1/GATORLINK/07-STATS
+cd /data1/GATORLINK/07-STATS
 
-grep lnL *.null.codeml > Null_lnL_list.txt
+perl codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null.codeml
+
 ```
 
 ##### Significance
+
 
 Import these lists into Excel and use a chisquare test of significance.
  
