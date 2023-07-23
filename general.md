@@ -44,3 +44,31 @@ diamond makedb uniprot_sprot.fasta
 you will need to adjust the line diamond commands in the pipeline to point to the full path of this database `uniprot_sprot.fasta` rather than `/usr/local/uniprot/swissprot`.
 
 
+### Install PFAM Database (optional)
+
+For more accurate predictions with TransDecoder, it is recommended to use the hmmscan program from the HMMer package to identify domains in translated sequence that can be used by TransDecoder.predict to more accurately predict ORFS. Here is how to install hmmer.
+
+```bash
+conda install -c bioconda hmmer
+```
+
+Here's how to download the PFAM database
+
+```bash
+wget http://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+gzip -d Pfam-A.hmm.gz
+```
+
+Here's the command to run hmmscan (this would be step 2b in the pipeline):
+
+``bash
+hmmscan --cpu 18 --domtblout Species_A.domtblout Pfam-A.hmm Species_A.fasta.transdecoder_dir/longest_orfs.pep > Sp_A.hmmscan.out 2> Sp_A.hmmscan.err
+```
+
+Here's the adjusted TransDecoder.Predict command (step 3 in the pipeline):
+
+```bash
+TransDecoder.Predict -t ../00-DATA/Species_A.fasta --retain_pfam_hits Species_A.domtblout --retain_blastp_hits Sp_A.diamond.out --cpu 18 > Sp_A.td.p.out 2> Sp_A.td.p.err &
+```
+
+
