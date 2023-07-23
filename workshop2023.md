@@ -251,7 +251,7 @@ PhyloPyPruner is a Python package for phylogenetic tree-based orthology inferenc
 <a href="https://pypi.org/project/phylopypruner/">https://pypi.org/project/phylopypruner/</a>
 </td></tr></table>
 
-Run PhyloPyPruner
+##### Run PhyloPyPruner (identify 1-to-1 orthologs)
 
 ```bash
 mkdir /data1/GATORLINK/03-PHYLOPYPRUNER
@@ -266,7 +266,7 @@ Pruned alignments are created in this directory:
 /data1/GATORLINK/03-PHYLOPYPRUNER/phylopypruner_output/output_alignments
 ```
 
-##### PAL2NAL (align cds based on aa alignment)
+##### Run PAL2NAL (align cds based on aa alignment)
 
 Create a new directory and copy pruned alignments to this directory
 
