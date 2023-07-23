@@ -14,6 +14,7 @@ conda config --set channel_priority strict
 conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal hyphy
 conda install -y -c conda-forge r-ape
 cpan URI::Escape
+cpan Statistics::Distributions
 pip install phylopypruner   
 ```
 
