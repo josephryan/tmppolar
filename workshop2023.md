@@ -453,7 +453,6 @@ PAML ALT versus NULL models
  
 Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using the codeml_chisquare.pl you can generate p-values. The script calculates the cumulative probability of the chi-square distribution, given the degrees of freedom (DF = number of sequences) and the chi-square test statistic (`X`) which is: 2*(lnL1(ALT)-lnL0(NULL)). The p-value is then computed as 1 - chisqrprob(DF, X).
 
-
 Example (degrees of freedom depends on the number of branches in your tree)
  
 ```bash
@@ -464,28 +463,8 @@ codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null
 
 ```
 
-##### Significance
+##### IDENTITY OF SIGNIFICANT GENES
 
-
-Import these lists into Excel and use a chisquare test of significance.
- 
-```bash
-CODEML_Results 2*(lnL1(ALT)-lnL0(NULL))=CHISQ.DIST(X,1, FALSE)
-```
- 
-The resulting P-values may be corrected for multiple comparisons using Benjamini and Hochberg (1995;2010) using R or simply use the website listed below.
-<a href="https://www.sdmproject.com/utilities/?show=FDR">https://www.sdmproject.com/utilities/?show=FDR</a>
- 
-Below are some of the important results you should look at in your MCL_ALT_files if the likelihood ratio test is significant.
- 
-MLEs of dN/dS (w) for site classes (K=4) site class 0 1 2a 2b proportion 0.74271 0.24369 0.01024 0.00336 background w 0.06038 1.00000 0.06038 1.00000 foreground w 0.06038 1.00000 176.87071 176.87071
- 
-M0 : Proportion of sites that are under purifying selection (ω0 < 1) on both foreground and background branches. M1 : Proportion of sites that are under neutral evolution (ω1 = 1) on both foreground and background branches. M2a: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under purifying selection (ω0 < 1) on background branches. M2b: Proportion of sites that are under positive selection (ω2 ≥ 1) on the foreground branch and under neutral evolution (ω1 = 1) on background branches.
- 
-Bayes Empirical Bayes (BEB) analysis (Yang, Wong & Nielsen 2005. Mol. Biol. Evol. 22:1107-1118) Positive sites for foreground lineages Prob(w>1): 33 T 0.975* 108 E 0.999**
- 
-See Bielawski et al, 2016
- 
 You will need to identify the resulting significant candidate genes under positive selection. If you are familiar with batch BLAST searches, use what you like but I suggest making a batch query file from a representative peptide sequence from each of your peptide alignment files. Again, there are many ways to do this, but one example is listed below.
  
 Extract the first sequence from each peptide alignment file.
