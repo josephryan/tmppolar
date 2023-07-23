@@ -460,7 +460,7 @@ Example (degrees of freedom depends on the number of branches in your tree)
 mkdir /data1/GATORLINK/07-STATS
 cd /data1/GATORLINK/07-STATS
 
-perl codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null.codeml
+codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null.codeml --df=2
 
 ```
 
