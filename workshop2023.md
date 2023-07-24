@@ -13,7 +13,7 @@ ssh GATORLINK@IPADDRESS
 Activate the workshop conda image (this needs to be done with each new login)
 
 ```bash
-conda activate /data1/jfryan2023/00-CONDA/polar
+conda activate /data1/conda/polar
 ```
 
 <table bgcolor=grey border=1><tr><td><b>SCREEN</b>
