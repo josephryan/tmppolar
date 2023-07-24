@@ -463,6 +463,17 @@ codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null
 
 ```
 
+##### IDENTIFY aBSREL outputs with positive test results
+
+```bash
+parse_absrel.pl  --absrel_dir=../06-HYPHY/02-OUT/hyphy.absrel --suf=absrel.jason > parse_absrel.out 2> parse_absrel.err
+
+# parse_absrel.out will list files with positive results
+# parse_absrel.err will list any errors including unparseable files
+```
+
+absrel.jason outputs can be viewed here: http://vision.hyphy.org/absrel (click "Load" button in top right corner and upload file).
+
 ##### IDENTITY OF SIGNIFICANT GENES
 
 You will need to identify the resulting significant candidate genes under positive selection. If you are familiar with batch BLAST searches, use what you like but I suggest making a batch query file from a representative peptide sequence from each of your peptide alignment files. Again, there are many ways to do this, but one example is listed below.
