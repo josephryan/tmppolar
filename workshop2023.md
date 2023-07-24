@@ -23,7 +23,7 @@ Before running long-running processes, run the following:
 screen -S NAME_OF_SCREEN
 
 # you need to activate conda env within screen
-conda activate /data1/jfryan2023/00-CONDA/polar
+conda activate /data1/conda/polar
 ```
 
 
@@ -172,7 +172,7 @@ cd ..
 ```bash
 # MAY WANT TO INVOKE SCREEN HERE
 # screen -S orthofinder
-# conda activate /data1/jfryan2023/00-CONDA/polar
+# conda activate /data1/conda/polar
 
 orthofinder -X -z -t 18 -f 01-AA -M msa > of.out 2> of.err &
 
@@ -372,7 +372,7 @@ Run CODEML (program within PAML that tests for selection; estimated time = 2+ ho
 ```bash
 # MAY WANT TO INVOKE SCREEN HERE
 # screen -S paml
-# conda activate /data1/jfryan2023/00-CONDA/polar
+# conda activate /data1/conda/polar
 
 run_codeml.pl --tree=unrooted.tree --null --alt --aln_suf=phy > rc.out 2> rc.err &
 
@@ -446,7 +446,7 @@ Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
 ```bash
 # probably want to run screen here
 screen -S hyphy
-conda activate /data1/jfryan2023/00-CONDA/polar
+conda activate /data1/conda/polar
 
 run_hyphy.pl --absrel --busted --meme --aln_dir=01-ALN --out_dir=02-OUT --tree=unrooted.tree --pre=hyphy --require_num_seqs=7 &
 
