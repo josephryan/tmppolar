@@ -414,31 +414,31 @@ WORKAROUND FOR HYPHY
 
 ```bash
 conda deactivate
-conda activate /data1/jfryan.orig/00-CONDA/polar
+conda activate /data1/conda/hyphy
 ```
 
 Run a single BUSTED
 
 ```bash
-hyphy busted --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.Busted.jason
+hyphy busted --alignment 01-ALN/OGXXXXXXXXX_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OGXXXXXX.busted.json
 ```
 
-Run a single aBSREL
+Run a single aBSREL (adjust OGXXXXXXXXX to correspond with real file)
 
 ```bash
-hyphy aBSREL --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.aBSREL.jason
+hyphy aBSREL --alignment 01-ALN/OGXXXXXXXXX_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OGXXXXXXXXX.absrel.json
 ```
 
-Run a single MEME
+Run a single MEME (adjust OGXXXXXXXXX to correspond with real file)
 
 ```bash
-hyphy meme --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OG0007770.meme.jason
+hyphy meme --alignment 01-ALN/OGXXXXXXXXX_pruned.cds.fa_align.fa --tree unrooted.tree --branches Foreground --output OGXXXXXXXXX.meme.json
 ```
 
-Run a single RELAX (note: RELAX use --test instead of --branches to specify branches) 
+Run a single RELAX (note: RELAX use --test instead of --branches to specify branches)  (adjust OGXXXXXXXXX to correspond with real file)
 
 ```bash
-hyphy relax --alignment 01-ALN/OG0007770_pruned.cds.fa_align.fa --tree unrooted.tree --test Foreground --output OG0007770.meme.jason
+hyphy relax --alignment 01-ALN/OGXXXXXXXXX_pruned.cds.fa_align.fa --tree unrooted.tree --test Foreground --output OGXXXXXXXXX.relax.json
 ```
 
 Run Busted, Absrel, and Meme (meme=7 hrs; busted=13 hrs; absrel=9 hrs):
@@ -473,13 +473,13 @@ codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null
 ##### IDENTIFY aBSREL outputs with positive test results
 
 ```bash
-parse_absrel.pl  --absrel_dir=../06-HYPHY/02-OUT/hyphy.absrel --suf=absrel.jason > parse_absrel.out 2> parse_absrel.err
+parse_absrel.pl  --absrel_dir=../06-HYPHY/02-OUT/hyphy.absrel --suf=absrel.json > parse_absrel.out 2> parse_absrel.err
 
 # parse_absrel.out will list files with positive results
 # parse_absrel.err will list any errors including unparseable files
 ```
 
-absrel.jason outputs can be viewed here: http://vision.hyphy.org/absrel (click "Load" button in top right corner and upload file).
+absrel.json outputs can be viewed here: http://vision.hyphy.org/absrel (click "Load" button in top right corner and upload file).
 
 ##### IDENTITY OF SIGNIFICANT GENES
 
