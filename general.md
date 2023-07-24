@@ -11,9 +11,10 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 
-conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal hyphy paml
+conda install -y hyphy
+conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal paml
 conda install -y -c conda-forge r-ape
-cpan URI::Escape Statistics::Distributions
+cpan URI::Escape Statistics::Distributions JSON::Parse
 pip install phylopypruner   
 ```
 
