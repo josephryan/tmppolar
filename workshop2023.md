@@ -410,6 +410,13 @@ cp ../04-PAL2NAL/03-P2N/*.fa_align.fa 01-ALN/
 # NOTE: only those alignments with sequences from 7 taxa will work unless tree is pruned
 ```
 
+WORKAROUND FOR HYPHY
+
+```bash
+conda deactivate
+conda activate /data1/jfryan.orig/00-CONDA/polar
+```
+
 Run a single BUSTED
 
 ```bash
