@@ -11,15 +11,14 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 
+# note: do not condense the following 3 conda installs into a single command
 conda install -y hyphy
+# note: the following command will take a while
 conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal paml
 conda install -y -c conda-forge r-ape
 cpan URI::Escape Statistics::Distributions JSON::Parse
 pip install phylopypruner   
 ```
-
-install <a href="http://abacus.gene.ucl.ac.uk/software/">PAML</a>
-
 install <a href="https://github.com/josephryan/JFR-PerlModules">https://github.com/josephryan/JFR-PerlModules</a>
 
 ### Install utility scripts
