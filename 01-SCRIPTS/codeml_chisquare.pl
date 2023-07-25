@@ -5,7 +5,6 @@ use warnings;
 use Getopt::Long;
 use Pod::Usage;
 use Math::CDF;
-use Statistics::Distributions qw(chisqrprob);
 use Data::Dumper;
 
 our $VERSION = '0.01';
