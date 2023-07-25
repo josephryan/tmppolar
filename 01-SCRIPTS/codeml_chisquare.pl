@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
+use Math::CDF;
 use Statistics::Distributions qw(chisqrprob);
 use Data::Dumper;
 
@@ -29,8 +30,7 @@ sub calculate_chisquare {
         # Calculate the chi-square test statistic
         my $chi = 2 * ($lnl_alt - $lnl_null);
 
-        # Calculate the p-value using the chi-square distribution function
-        my $p_value = 1 - chisqrprob($df, $chi);
+        my $p_value = 1 - Math::CDF::pchisq($chi, $df);
         print "$key,$chi,$p_value\n";
     }
 }
