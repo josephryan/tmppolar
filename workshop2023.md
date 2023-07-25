@@ -473,7 +473,14 @@ codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null
 ##### IDENTIFY aBSREL outputs with positive test results
 
 ```bash
-parse_absrel.pl  --absrel_dir=../06-HYPHY/02-OUT/hyphy.absrel --suf=absrel.json > parse_absrel.out 2> parse_absrel.err
+cd /data1/GATOR_LINK/06-HYPHY/02-OUT/hyphy.absrel
+grep "corrected _p" *.out  | grep -v '\*\*0\*\*'
+```
+
+
+```bash
+# this doesn't work yet
+#parse_absrel.pl  --absrel_dir=../06-HYPHY/02-OUT/hyphy.absrel --suf=absrel.json > parse_absrel.out 2> parse_absrel.err
 
 # parse_absrel.out will list files with positive results
 # parse_absrel.err will list any errors including unparseable files
