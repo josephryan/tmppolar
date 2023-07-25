@@ -19,7 +19,7 @@ conda create --name polar -y python=3.7
 conda activate polar
 
 # note: the following command will take a while
-conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal paml
+conda install -y -c bioconda perl perl-uri perl-db-file orthofinder transdecoder pal2nal paml
 conda install -y -c conda-forge r-ape
 cpan URI::Escape Math::CDF JSON::Parse
 pip install phylopypruner   
