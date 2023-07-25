@@ -3,20 +3,25 @@
 ### Install requirements / configure environment
 
 ```bash
-conda create --name polar -y python=3.7
-conda activate polar
-
+# create 2 conda images because hyphy doesnt work when other packages installed
+# first create a single hyphy image
+conda create --name hyphy -y python=3.7
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
-
-# note: do not condense the following 3 conda installs into a single command
+conda activate hyphy
 conda install -y hyphy
+conda deactivate
+
+# next create an image for all othe programs
+conda create --name polar -y python=3.7
+conda activate polar
+
 # note: the following command will take a while
 conda install -y -c bioconda perl-uri perl-db-file orthofinder transdecoder pal2nal paml
 conda install -y -c conda-forge r-ape
-cpan URI::Escape Statistics::Distributions JSON::Parse
+cpan URI::Escape Math::CDF JSON::Parse
 pip install phylopypruner   
 ```
 install <a href="https://github.com/josephryan/JFR-PerlModules">https://github.com/josephryan/JFR-PerlModules</a>
