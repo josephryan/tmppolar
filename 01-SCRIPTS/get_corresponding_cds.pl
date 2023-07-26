@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
+use File::Copy;
 use JFR::Fasta;
 use Data::Dumper;
 
