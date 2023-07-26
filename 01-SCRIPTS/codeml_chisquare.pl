@@ -31,7 +31,7 @@ sub calculate_chisquare {
         my $chi = 2 * ($lnl_alt - $lnl_null);
 
         my $p_value = 1 - Math::CDF::pchisq($chi, $df);
-        next if ($rh_o->{'max_pval'} && $p_value <= $rh_o->{'max_pval'}) {
+        next if ($rh_o->{'max_pval'} && $p_value <= $rh_o->{'max_pval'});
         print "$key,$chi,$p_value\n";
     }
 }
