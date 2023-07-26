@@ -460,13 +460,15 @@ PAML ALT versus NULL models
  
 Once complete you will have two CODEML MCL Results files for each of your CDS gene alignments (ALT versus NULL). Using the codeml_chisquare.pl you can generate p-values. The script calculates the cumulative probability of the chi-square distribution, given the degrees of freedom (DF = number of sequences) and the chi-square test statistic (`X`) which is: 2*(lnL1(ALT)-lnL0(NULL)). The p-value is then computed as 1 - chisqrprob(DF, X).
 
-Example (degrees of freedom depends on the number of branches in your tree)
+NOTE: --df (degrees of freedom) = the number of parameters in the alternative model minus the number of parameters in the null model). 
+
+NOTE: --max_pval limits the output to those results with p-value less than the value supplied
  
 ```bash
 mkdir /data1/GATORLINK/07-STATS
 cd /data1/GATORLINK/07-STATS
 
-codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null.codeml --df=2
+codeml_chisquare.pl --codeml_dir=../05-PAML --alt_suf=alt.codeml --null_suf=null.codeml --df=1 --max_pval=0.05
 
 ```
 
