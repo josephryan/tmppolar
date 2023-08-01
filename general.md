@@ -34,7 +34,7 @@ git clone https://github.com/josephryan/tmppolar
 
 # install scripts
 cd tmppolar/01-SCRIPTS
-perl Makefile.pl 
+perl Makefile.PL 
 make
 make install
 ```
