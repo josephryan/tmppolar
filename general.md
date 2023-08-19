@@ -43,6 +43,9 @@ NOTE: you will need these scripts in both the polar and hyphy conda environments
 ```bash
 conda deactivate
 conda activate hyphy
+make clean
+perl Makefile.PL 
+make
 make install
 conda deactivate
 conda activate polar
