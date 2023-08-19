@@ -38,6 +38,15 @@ perl Makefile.PL
 make
 make install
 ```
+NOTE: you will need these scripts in both the polar and hyphy conda environments. Assuming that you ran the above commands from within the polar environment, run the following from within the 01-SCRIPTS directory:
+
+```bash
+conda deactivate
+conda activate hyphy
+make install
+conda deactivate
+conda activate polar
+```
 
 ### Install SwissProt Database
 
